@@ -11,7 +11,7 @@ Polls the Store Intelligence API every 2 seconds and displays:
 
 Usage:
     python dashboard/live_dashboard.py
-    python dashboard/live_dashboard.py --api-url http://localhost:8000 --store STORE_BLR_002
+    python dashboard/live_dashboard.py --api-url http://localhost:8080 --store STORE_BLR_002
     python dashboard/live_dashboard.py --replay  # Replay events from JSONL files
 
 This proves the pipeline and API are genuinely connected — the dashboard
@@ -270,7 +270,7 @@ def replay_events(api_url: str, store_id: str):
 
 def main():
     parser = argparse.ArgumentParser(description="Store Intelligence Live Dashboard")
-    parser.add_argument("--api-url", default="http://localhost:8000")
+    parser.add_argument("--api-url", default="http://localhost:8080")
     parser.add_argument("--store", default="STORE_BLR_002")
     parser.add_argument("--replay", action="store_true",
                         help="Replay events from JSONL files before showing dashboard")
