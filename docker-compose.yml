@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: store-intelligence-api
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount data directory so events from pipeline are visible to API
+      - ./data:/app/data
+      - ./resources:/app/resources:ro
+    environment:
+      - DATABASE_URL=sqlite:///data/events.db
+      - PYTHONPATH=/app
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8000/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+
+  # Optional: Run detection pipeline inside docker
+  # To use: docker compose run --rm pipeline
+  pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: store-intelligence-pipeline
+    volumes:
+      - ./data:/app/data
+      - ./resources:/app/resources:ro
+      - ./pipeline:/app/pipeline
+    environment:
+      - PYTHONPATH=/app
+    command: python pipeline/detect.py --all
+    profiles:
+      - pipeline  # Only runs with: docker compose --profile pipeline up
+
+networks:
+  default:
+    name: store-intelligence-network

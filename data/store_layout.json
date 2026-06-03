@@ -1,0 +1,130 @@
+{
+  "store_id": "STORE_BLR_002",
+  "store_name": "Brigade_Bangalore",
+  "alt_store_id": "ST1008",
+  "city": "Bangalore",
+  "location": "Brigade Road",
+  "open_hours": {
+    "weekday": "10:00-21:00",
+    "weekend": "10:00-22:00"
+  },
+  "video_base_date": "2026-04-10",
+  "video_start_time": "10:00:00",
+  "cameras": [
+    {
+      "camera_id": "CAM_ENTRY_01",
+      "file": "CAM 1.mp4",
+      "type": "entry_exit",
+      "description": "Main entry/exit threshold - left side door",
+      "entry_line": {"y": 0.6, "x_start": 0.1, "x_end": 0.9},
+      "direction_in": "top_to_bottom",
+      "zones": ["ENTRY_EXIT"],
+      "resolution": [1920, 1080],
+      "fps": 15
+    },
+    {
+      "camera_id": "CAM_ENTRY_02",
+      "file": "CAM 2.mp4",
+      "type": "entry_exit",
+      "description": "Secondary entry/exit threshold - right side",
+      "entry_line": {"y": 0.6, "x_start": 0.1, "x_end": 0.9},
+      "direction_in": "top_to_bottom",
+      "zones": ["ENTRY_EXIT_2"],
+      "resolution": [1920, 1080],
+      "fps": 15
+    },
+    {
+      "camera_id": "CAM_FLOOR_01",
+      "file": "CAM 3.mp4",
+      "type": "floor",
+      "description": "Main floor - skincare, makeup, haircare zones",
+      "zones": ["SKINCARE", "MAKEUP", "HAIRCARE"],
+      "resolution": [1920, 1080],
+      "fps": 15
+    },
+    {
+      "camera_id": "CAM_BILLING_01",
+      "file": "CAM 4.mp4",
+      "type": "billing",
+      "description": "Billing counter area",
+      "zones": ["BILLING"],
+      "resolution": [1920, 1080],
+      "fps": 15
+    },
+    {
+      "camera_id": "CAM_FLOOR_02",
+      "file": "CAM 5.mp4",
+      "type": "floor",
+      "description": "Secondary floor - fragrance and accessories",
+      "zones": ["FRAGRANCE", "ACCESSORIES"],
+      "resolution": [1920, 1080],
+      "fps": 15
+    }
+  ],
+  "zones": [
+    {
+      "zone_id": "ENTRY_EXIT",
+      "sku_zone": "ENTRY",
+      "camera_id": "CAM_ENTRY_01",
+      "type": "threshold",
+      "polygon_normalized": [[0.0, 0.5], [1.0, 0.5], [1.0, 0.75], [0.0, 0.75]]
+    },
+    {
+      "zone_id": "ENTRY_EXIT_2",
+      "sku_zone": "ENTRY",
+      "camera_id": "CAM_ENTRY_02",
+      "type": "threshold",
+      "polygon_normalized": [[0.0, 0.5], [1.0, 0.5], [1.0, 0.75], [0.0, 0.75]]
+    },
+    {
+      "zone_id": "SKINCARE",
+      "sku_zone": "MOISTURISER",
+      "camera_id": "CAM_FLOOR_01",
+      "type": "product_zone",
+      "polygon_normalized": [[0.0, 0.0], [0.45, 0.0], [0.45, 0.5], [0.0, 0.5]]
+    },
+    {
+      "zone_id": "MAKEUP",
+      "sku_zone": "LIPSTICK",
+      "camera_id": "CAM_FLOOR_01",
+      "type": "product_zone",
+      "polygon_normalized": [[0.45, 0.0], [1.0, 0.0], [1.0, 0.5], [0.45, 0.5]]
+    },
+    {
+      "zone_id": "HAIRCARE",
+      "sku_zone": "SHAMPOO",
+      "camera_id": "CAM_FLOOR_01",
+      "type": "product_zone",
+      "polygon_normalized": [[0.0, 0.5], [1.0, 0.5], [1.0, 1.0], [0.0, 1.0]]
+    },
+    {
+      "zone_id": "BILLING",
+      "sku_zone": "BILLING",
+      "camera_id": "CAM_BILLING_01",
+      "type": "billing",
+      "polygon_normalized": [[0.1, 0.1], [0.9, 0.1], [0.9, 0.9], [0.1, 0.9]],
+      "queue_line": {"y": 0.5, "x_start": 0.1, "x_end": 0.9}
+    },
+    {
+      "zone_id": "FRAGRANCE",
+      "sku_zone": "PERFUME",
+      "camera_id": "CAM_FLOOR_02",
+      "type": "product_zone",
+      "polygon_normalized": [[0.0, 0.0], [0.5, 0.0], [0.5, 1.0], [0.0, 1.0]]
+    },
+    {
+      "zone_id": "ACCESSORIES",
+      "sku_zone": "TOOLS",
+      "camera_id": "CAM_FLOOR_02",
+      "type": "product_zone",
+      "polygon_normalized": [[0.5, 0.0], [1.0, 0.0], [1.0, 1.0], [0.5, 1.0]]
+    }
+  ],
+  "cross_camera_overlap": [
+    {
+      "cameras": ["CAM_ENTRY_01", "CAM_FLOOR_01"],
+      "description": "Entry camera overlaps with floor camera near entrance",
+      "dedup_time_window_sec": 5
+    }
+  ]
+}
